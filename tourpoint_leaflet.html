@@ -1,0 +1,271 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My leaflet map</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+    
+    <!-- W3 CSS template -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+   
+   <style>
+    #mapid {
+    height: 800px;
+    }
+    </style>
+
+</head>
+<body>
+    <!-- #แบ่งหน้าจอ -->
+    <div class="w3-row">
+        <div id="mapid" class="w3-half"></div>
+        <div id="content" class="w3-half">
+        <table class="w3-table w3-striped">
+        <tr>
+        <th>name</th>
+        <th>favor</th>
+        </tr>
+        <tr>
+        <td>น้ำตก A</td>
+        <td>ธรรมชาติ</td>
+        <td>A</td>
+        </tr>
+        </table>
+        </div>
+        </div>
+<!-- link geojson file -->
+<script src = "tourpoint.js"></script>
+
+ <!--Map control -->
+<script>
+var map = L.map("mapid").setView([14.224002871037218, 100.5459010906624], 8);
+ 
+ var osm = L.tileLayer(
+ "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+ ).addTo(map);
+ var gsat = L.tileLayer(
+ "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+ ).addTo(map);
+ 
+//  การรวมญาติ
+ var baseMaps = {
+ OSM: osm,
+ GoogleSat: gsat,
+ };
+
+//  add data
+var tourpoint = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "singhapark",
+        "type": "natural",
+        "level": 10
+      },
+      "geometry": {
+        "coordinates": [
+          99.732714973589,
+          19.861322575051176
+        ],
+        "type": "Point"
+      }
+      {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ร้านอาหารรสใหม่",
+        "favor": 9
+      },
+      "geometry": {
+        "coordinates": [
+          99.32580426295561,
+          9.147295167766686
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "casa diverso",
+        "favor": 8
+      },
+      "geometry": {
+        "coordinates": [
+          98.97880777109333,
+          18.785789001201465
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "thai salad concept",
+        "favor": 7
+      },
+      "geometry": {
+        "coordinates": [
+          98.96631467879376,
+          18.796774071847963
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "kao soy nimman",
+        "favor": 10
+      },
+      "geometry": {
+        "coordinates": [
+          98.96927810690033,
+          18.797973699360796
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aye's restaurant",
+        "favor": 9
+      },
+      "geometry": {
+        "coordinates": [
+          99.83290022552387,
+          19.90472460017787
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "thai food easy style",
+        "favor": 8
+      },
+      "geometry": {
+        "coordinates": [
+          99.83307125761934,
+          19.903158382761063
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "pad thai jed yod",
+        "favor": 10
+      },
+      "geometry": {
+        "coordinates": [
+          99.83170968641213,
+          19.90363416742082
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "savoey",
+        "favor": 8
+      },
+      "geometry": {
+        "coordinates": [
+          100.48878623916016,
+          13.755308279262437
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "lan long lui restaurant",
+        "favor": 7
+      },
+      "geometry": {
+        "coordinates": [
+          100.48887389012958,
+          13.75640637922794
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "jok je noi",
+        "favor": 10
+      },
+      "geometry": {
+        "coordinates": [
+          102.8377883084164,
+          16.430682821538753
+        ],
+        "type": "Point"
+      }
+    }
+  ]
+}
+
+var tourLayer = L.geoJSON(tourpoint, {
+ pointToLayer: function (feature, latlng) {
+ return L.marker(latlng).bindPopup(feature.properties.name);
+ },
+ onEachFeature: function (feature, layer) {
+ layer.on("mouseover", function () {
+ document
+ .getElementById(feature.properties.name)
+ .classList.add("w3-red");
+ });
+ 
+ layer.on("mouseout", function () {
+ document
+ .getElementById(feature.properties.name)
+ .classList.remove("w3-red");
+ });
+ },
+ }).addTo(map);
+ 
+ var cont = "";
+ cont += "<table class='w3-table w3-striped'>";
+ cont += "<tr>";
+ cont += "<th>ชื่อแหล่งท่องเที่ยว</th>";
+ cont += "<th>ประเภท</th>";
+ cont += "<th>ระดับ</th>";
+ cont += "</tr>";
+ for (let i in tourpoint.features) {
+ cont += "<tr id=" + tourpoint.features[i].properties.name + ">";
+ cont += "<td>" + tourpoint.features[i].properties.name + "</td>";
+ cont += "<td>" + tourpoint.features[i].properties.type + "</td>";
+ cont += "<td>" + tourpoint.features[i].properties.level + "</td>";
+ cont += "</tr>";
+ }
+ cont += "</table>";
+ console.log(cont);
+ document.getElementById("content").innerHTML = cont;
+
+ var overlays = {สถานที่ท่องเที่ยว: tourLayer};
+ //add leyer control
+ L.control.layers(baseMaps, overlays).addTo(map);
+
+</script>
+</body>
+</html>
